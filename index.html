@@ -1,0 +1,396 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+  <meta charset="utf-8">
+  <!-- <meta name="description"
+        content="HyperNeRF handles topological variations by modeling a family of shapes in a higher-dimensional space, thereby producing more realistic renderings and more accurate geometric reconstructions.">
+  <meta name="keywords" content="HyperNeRF, Nerfies, D-NeRF, NeRF"> -->
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <!-- <meta property="og:image" content="./static/images/thumbnail.png"/>
+  <link rel="image_src" href="./static/images/thumbnail.png"> -->
+  <!-- <link rel="icon"
+        type="image/x-icon"
+        href="./static/images/favicon.png"/> -->
+  <link rel="icon" type="image/x-icon" href="assets/assistgpt_logo_v2.png">
+
+
+  <title>AssistGPT</title>
+
+  <!-- Global site tag (gtag.js) - Google Analytics -->
+  <script async src="https://www.googletagmanager.com/gtag/js?id=G-EDF010G6PN"></script>
+  <script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag() { dataLayer.push(arguments); }
+    gtag('js', new Date());
+
+    gtag('config', 'G-EDF010G6PN');
+
+
+  </script>
+
+  <script type="module" src="https://unpkg.com/@google/model-viewer/dist/model-viewer.min.js"></script>
+
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+  <script type="text/javascript" src="https://code.jquery.com/jquery-1.11.0.min.js"></script>
+  <script type="text/javascript" src="https://code.jquery.com/jquery-migrate-1.2.1.min.js"></script>
+  <script src="https://unpkg.com/interactjs/dist/interact.min.js"></script>
+
+  <link href="https://fonts.googleapis.com/css?family=Google+Sans|Noto+Sans|Castoro" rel="stylesheet">
+
+  <link rel="stylesheet" type="text/css" href="./static/slick/slick.css" />
+  <link rel="stylesheet" type="text/css" href="./static/slick/slick-theme.css" />
+
+  <link rel="stylesheet" href="./static/css/bulma.min.css">
+  <link rel="stylesheet" href="./static/css/bulma-slider.min.css">
+  <link rel="stylesheet" href="./static/css/fontawesome.all.min.css">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/jpswalsh/academicons@1/css/academicons.min.css">
+  <link rel="stylesheet" href="./static/css/index.css">
+
+  <script defer src="./static/js/fontawesome.all.min.js"></script>
+  <script src="./static/js/bulma-slider.min.js"></script>
+  <script src="./static/js/index.js"></script>
+
+  <style>
+    .navbar {
+      list-style-type: none;
+      margin: 0;
+      padding: 0;
+      overflow: hidden;
+      background-color: white;
+      position: fixed;
+      width: 100%;
+      transition: background-color 0.5s ease; /* 为背景颜色改变添加过渡效果 */
+    }
+
+    .navbar.scrolled {
+      background-color: #333;
+    }
+
+    .navbar li {
+      float: left;
+    }
+
+    .navbar li a {
+      display: block;
+      color: black;
+      text-align: center;
+      padding: 14px 16px;
+      text-decoration: none;
+      transition: color 0.5s ease; /* 为文本颜色改变添加过渡效果 */
+    }
+
+    .navbar.scrolled li a {
+      color: white;
+    }
+
+    /* .navbar li a:hover {
+      background-color: #111;
+    } */
+  </style>
+
+<script>
+  window.onscroll = function() {
+    var navbar = document.getElementById('navbar');
+    if (window.pageYOffset > 0) {
+      navbar.classList.add('scrolled');
+    } else {
+      navbar.classList.remove('scrolled');
+    }
+  }
+</script>
+</head>
+
+<body>
+  <ul class="navbar" id="navbar">
+    <li><a href="#home"><img src="assets/assistgpt_logo_v2.png" alt="Home" style="height:30px; width:30px; vertical-align:middle; margin-right:5px;">  <strong>AssistGPT</strong> </a></li>
+  </ul>
+  
+  <!-- <nav class="navbar" role="navigation" aria-label="main navigation">
+  <div class="navbar-brand">
+    <a role="button" class="navbar-burger" aria-label="menu" aria-expanded="false">
+      <span aria-hidden="true"></span>
+      <span aria-hidden="true"></span>
+      <span aria-hidden="true"></span>
+    </a>
+  </div> -->
+  <!-- <div class="navbar-menu">
+    <div class="navbar-start" style="flex-grow: 1; justify-content: center;">
+      <a class="navbar-item" href="https://keunhong.com">
+      <span class="icon">
+          <i class="fas fa-home"></i>
+      </span>
+      </a>
+
+      <div class="navbar-item has-dropdown is-hoverable">
+        <a class="navbar-link">
+          More Research
+        </a>
+        <div class="navbar-dropdown">
+          <a class="navbar-item" href="https://hypernerf.github.io">
+            HyperNeRF
+          </a>
+          <a class="navbar-item" href="https://nerfies.github.io">
+            Nerfies
+          </a>
+          <a class="navbar-item" href="https://latentfusion.github.io">
+            LatentFusion
+          </a>
+          <a class="navbar-item" href="https://photoshape.github.io">
+            PhotoShape
+          </a>
+        </div>
+      </div>
+    </div>
+
+  </div> -->
+  </nav>
+
+
+  <section class="hero">
+    <div class="hero-body">
+      <div class="container">
+        <div class="columns is-centered">
+          <!-- <div class="column is-4 has-text-centered">
+          <img src="static/images/logo.svg" alt="HyperNeRF"/>
+        </div> -->
+        </div>
+        <div class="container has-text-centered">
+          <h1 class="title is-2 publication-title">
+            <br>
+            AssistGPT: A General Multi-modal Assistant that can </br> Plan, Execute, Inspect, and Learn
+          </h1>
+          <div class="is-size-5 publication-authors">
+            <div class="author-block">
+              Difei Gao<sup>♡</sup>,</div>
+            <div class="author-block">
+              Lei Ji<sup>♢</sup>,</div>
+            <div class="author-block">
+              Luowei Zhou<sup>♤</sup>,</div>
+            <div class="author-block">
+              Kevin Qinghong Lin<sup>♡</sup>,
+            </div>
+            <div class="author-block">
+              Joya Chen<sup>♡</sup>,
+            </div>
+            <div class="author-block">
+              Zihan Fan<sup>♡</sup>,
+            </div>
+            <div class="author-block">
+              Mike Zheng Shou<sup>♡</sup>
+            </div>
+          </div>
+
+          <div class="is-size-5 publication-authors">
+            <span class="author-block"><sup>♡</sup>Show Lab, National University of Singapore,</span>
+            <span class="author-block"><sup>♢</sup>Microsoft Research Asia</span>
+            <span class="author-block"><sup>♤</sup>Microsoft</span>
+          </div>
+
+          <div class="column has-text-centered">
+            <div class="publication-links">
+              <!-- PDF Link. -->
+              <!-- <span class="link-block">
+                <a href="https://openreview.net/pdf?id=o3yygm3lnzS"
+                   class="external-link button is-normal is-rounded is-dark">
+                  <span class="icon">
+                      <i class="fas fa-file-pdf"></i>
+                  </span>
+                  <span>Paper (comi)</span>
+                </a>
+              </span> -->
+              <span class="link-block">
+                <a href="https://assistgpt-project.github.io/" class="external-link button is-normal is-rounded is-dark">
+                  <span class="icon">
+                    <i class="ai ai-arxiv"></i>
+                  </span>
+                  <span>arXiv (coming soon)</span>
+                </a>
+              </span>
+              <span class="link-block">
+                <a href="https://assistgpt-project.github.io/" class="external-link button is-normal is-rounded is-dark">
+                  <span class="icon">
+                    <i class="fab fa-github"></i>
+                  </span>
+                  <span>Code (coming soon)</span>
+                </a>
+              </span>
+              <!-- Dataset Link. -->
+              <!-- <span class="link-block">
+              <a href=""
+                 class="external-link button is-normal is-rounded is-dark">
+                <span class="icon">
+                    <i class="far fa-images"></i>
+                </span>
+                <span>Data</span>
+                </a>
+              </span> -->
+              <div></br></div>
+              <!-- <div class="is-size-5 publication-authors">
+                <span class="author-block"><b></b></span>
+              </div> -->
+            </div>
+          </div>
+        </div>
+      </div>
+  </section>
+
+  <section class="hero teaser">
+    <div class="hero-body">
+      <div class="container is-max-desktop">
+        <center>
+          <video id="teaser" autoplay controls muted loop playsinline width="70%">
+            <source src="./assets/fig1-v4.mp4" type="video/mp4">
+          </video>
+          <figure style="width: 80%;">
+            <!-- <a href="assets/fig1-v4.gif">
+              <img width="80%" src="assets/fig1-v4.gif">
+          </a> -->
+            <p class="caption" style="margin-bottom: 1px;  text-align: justify">
+              AssistGPT can reason in an interleaved language and code format. Given a query input and visual inputs,
+              AssistGPT plans the problem-solving path in language, using structured code to call upon various powerful
+              tools. The Inspector, part of the system, can manage visual inputs and intermediate results, assisting the
+              Planner to invoke tools. Meanwhile, the Learner can assess the reasoning process and collect in-context
+              examples.
+            </p>
+          </figure>
+          <!-- </br>
+        </br> -->
+
+          <!-- <video id="teaser" autoplay controls muted loop playsinline width="70%">
+          <source src="./assets/vc_128_stitched_demo.mp4"
+                  type="video/mp4">
+        </video> -->
+        </center>
+        <!-- <h2 class="subtitle has-text-centered">
+        PV3D is able to generate diverse videos with multi-view consistency and detailed dynamic 3D geometry. 
+      </h2> -->
+      </div>
+    </div>
+  </section>
+
+
+  <section class="section">
+    <div class="container is-max-desktop">
+
+      <!-- Abstract. -->
+      <div class="columns is-centered has-text-centered">
+        <div class="column is-four-fifths">
+          <h2 class="title is-3">Abstract</h2>
+          <div class="content has-text-justified">
+            <p>
+              Recent advancements in Large Language Models (LLMs) have improved general NLP AI assistants and their
+              capacity to invoke models or APIs. However, complex visual tasks remain a challenge due to diversity in
+              reasoning paths and variable inputs, and intermediate results. In many real-world applications, it's hard
+              to break down a query based purely on the query itself, requiring specific visual content and step-by-step
+              results. Inputs can vary, often involving a combination of videos and images, and the reasoning process
+              can generate diverse multimodal intermediate results like video narrations and segmented video clips. <br>
+
+              To address such general cases, we propose a multi-modal AI assistant, AssistGPT, with an interleaved code
+              and language reasoning approach called Plan, Execute, Inspect, and Learn (PEIL) to integrate LLMs with
+              various tools. Specifically, the Planner is capable of using natural language to plan which tool in
+              Executor should do next based on the current reasoning progress. Inspector is an efficient memory manager
+              to assist the Planner to feed proper visual information into a specific tool. Finally, since the entire
+              reasoning process is complex and flexible, a Learner is designed to enable the model to autonomously
+              explore and discover the optimal solution.
+            </p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="section">
+    <div class="container is-max-desktop">
+      <div class="columns is-centered">
+        <h2 class="title is-3">Results</h2>
+      </div>
+      <div class="columns is-centered has-text-centered">
+        <div class="column is-four-fifths">
+          <div class="content has-text-justified">
+            <p>
+              By integrating multiple models and employing an interleaved language and code reasoning manner, AssistGPT
+              possesses the following features:
+              <ul>
+                <li><strong>Understanding Complex Video Content:</strong> It can process various forms of information such as visual content, subtitle, and
+                  OCR.</li>
+                <li><strong>Addressing High-Level Queries:</strong>   The model can automatically plan reasoning path based on visual content.</li>
+                <li><strong>Supporting Flexible Inputs:</strong>  It can accommodate a variety of input types, each serving different functions.</li>
+              </ul>
+            </p>
+          </div>
+        </div>
+      </div>
+
+      </br>
+      <CENter>
+        <video id="teaser" autoplay controls muted loop playsinline width="70%">
+          <source src="./assets/messi.mp4" type="video/mp4">
+        </video>
+
+        <video id="teaser" autoplay controls muted loop playsinline width="70%">
+          <source src="./assets/badminton.mp4" type="video/mp4">
+        </video>
+
+        <video id="teaser" autoplay controls muted loop playsinline width="70%">
+          <source src="./assets/gopro.mp4" type="video/mp4">
+        </video>
+        
+        <video id="teaser" autoplay controls muted loop playsinline width="70%">
+          <source src="./assets/cook.mp4" type="video/mp4">
+        </video>
+
+
+
+
+      </CENter>
+
+    </div>
+    </div>
+    </br>
+    </br>
+    </br>
+    </br>
+
+
+
+    <section class="section" id="BibTeX">
+      <div class="container content is-max-desktop">
+        <h2 class="title">BibTeX</h2>
+        <pre><code>@article{gao2023assistgpt,
+      title = {AssistGPT: A General Multi-modal Assistant that can Plan, Execute, Inspect, and Learn},
+      author = {Gao, DiFei and Ji, Lei and Zhou, Luowei and Lin, Kevin Qinghong and Chen, Joya and Fan, Zihan and Shou, Mike Zheng},  
+      year = {2023},
+}
+</code></pre>
+      </div>
+    </section>
+
+
+    <footer class="footer">
+      <div class="container">
+        <!-- <div class="content has-text-centered">
+          <a class="icon-link" href="https://openreview.net/pdf?id=o3yygm3lnzS">
+            <i class="fas fa-file-pdf"></i>
+          </a>
+          <a class="icon-link" href="https://github.com/bytedance/pv3d" class="external-link" disabled>
+            <i class="fab fa-github"></i>
+          </a>
+        </div> -->
+        <div class="columns is-centered">
+          <div class="column is-6">
+            <div class="content">
+              <p>
+                The source code of this webpage is based on the <a href="https://github.com/nerfies/nerfies.github.io/">
+                  Nerfies</a> project webpage.
+              </p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </footer>
+
+    <script type="text/javascript" src="./static/slick/slick.min.js"></script>
+</body>
+
+</html>
